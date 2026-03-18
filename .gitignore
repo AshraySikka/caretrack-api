@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables - NEVER commit this
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Alembic
+alembic/versions/*.py
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
