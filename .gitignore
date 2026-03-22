@@ -28,3 +28,4 @@ alembic/versions/*.py
 .DS_Store
 __pycache__/
 *.pyc
+test.http
