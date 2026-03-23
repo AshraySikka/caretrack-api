@@ -9,7 +9,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
-from app.models.users import User
+from app.models.users import User #noqa
 from app.models.patient import Patient
 from app.models.provider import Provider
 from app.models.care_plan import CarePlan
