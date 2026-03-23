@@ -1,5 +1,6 @@
+import os
 import asyncio
-import pytest #noqa
+import pytest  # noqa
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
@@ -7,12 +8,17 @@ from sqlalchemy.pool import NullPool
 
 from app.main import app
 from app.database import Base, get_db
-from app.config import settings
 
-# Use a separate test database
-TEST_DATABASE_URL = settings.DATABASE_URL.replace(
-    "/caretrack", "/caretrack_test"
+# Build test database URL
+_base_url = os.getenv(
+    "DATABASE_URL",
+    "postgresql+asyncpg://postgres:password@localhost:5432/caretrack"
 )
+
+if "/caretrack_test" in _base_url:
+    TEST_DATABASE_URL = _base_url
+else:
+    TEST_DATABASE_URL = _base_url.replace("/caretrack", "/caretrack_test")
 
 test_engine = create_async_engine(
     TEST_DATABASE_URL,
@@ -99,7 +105,6 @@ async def admin_headers(client):
         "full_name": "Admin User",
         "password": "adminpassword123"
     })
-    # Set admin role directly in test database
     async with TestSessionLocal() as session:
         from sqlalchemy.future import select
         from app.models.users import User
