@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, patients, providers
+from app.routers import auth, patients, providers, care_plans
 
 app = FastAPI(
     title="CareTrack API",
@@ -22,6 +22,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(patients.router)
 app.include_router(providers.router)
+app.include_router(care_plans.router)
 
 
 @app.get("/", tags=["Health"])
