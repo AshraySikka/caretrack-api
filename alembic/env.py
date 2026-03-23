@@ -1,17 +1,23 @@
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from app.models import Base  # noqa
-from app.models.users import User  # noqa - ensures model is registered
+import os
 
-# this is the Alembic Config object
+from app.models import Base  # noqa
+from app.models.users import User  # noqa
+
 config = context.config
 
-# setup loggers
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# this is what tells Alembic to look at your models
+# Override sqlalchemy.url with DATABASE_URL environment variable if set
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    # Convert asyncpg URL to sync for Alembic
+    sync_url = database_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://")
+    config.set_main_option("sqlalchemy.url", sync_url)
+
 target_metadata = Base.metadata
 
 

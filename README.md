@@ -7,7 +7,9 @@ Inspired by real workflows from healthcare coordination — managing patients, a
 
 ## Live API
 
-> Deployment coming soon — follow setup instructions below to run locally.
+> **Live API:** https://caretrack-api.onrender.com
+> 
+> **Interactive Docs:** https://caretrack-api.onrender.com/docs
 
 ## Tech Stack
 
